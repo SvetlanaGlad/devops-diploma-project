@@ -1,0 +1,21 @@
+name:
+    Build and Test Podman Image
+
+on:
+    push:
+        branches:
+            - main
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Build Podman image
+              run: |
+                podman build -t my-devops-app:latest .
+
+            - name: Run tests
+              run: |
+                podman run --rm my-devops-app:latest pytest tests/
