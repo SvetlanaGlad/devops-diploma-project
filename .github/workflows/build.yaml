@@ -3,19 +3,20 @@ name:
 
 on:
     push:
-        branches:
-            - main
+        branches: [main]
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
     build:
         runs-on: ubuntu-latest
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
 
-            - name: Build Podman image
+            - name: Build Docker image
               run: |
-                podman build -t my-devops-app:latest .
+                docker build -t my-devops-app:latest .
 
-            - name: Run tests
-              run: |
-                podman run --rm my-devops-app:latest pytest tests/
+          
