@@ -1,5 +1,5 @@
 name:
-    Build and Test Podman Image
+     DevSecOps CI Pipeline
 
 on:
     push:
@@ -24,15 +24,18 @@ jobs:
               run: | 
                 pip install fastapi uvicorn httpx pytest bandit flake8 psutil
 
-            - name: Lint and SAST
+            - name: Run Linting
               run: 
-                flake8 . --count --exit-zero --max-line-length=127 --statistics
-                bandit -r app/ -f txt
+                flake8 . --count --max-line-length=127 --statistics
+              
+            - name: Run Bandit Security Analysis 
+              run: 
+                bandit -r app/ -f txt -o bandit_report.txt
 
             - name: Run Unit Tests
               run: |
-                pytest app/test_main.py
-
+                pytest 
+                
             - name: Build Docker image
               run: |
                 docker build -t my-devops-app:latest .
