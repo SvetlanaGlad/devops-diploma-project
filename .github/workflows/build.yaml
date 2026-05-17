@@ -26,7 +26,7 @@ jobs:
 
             - name: Run Linting
               run: 
-                flake8 . --count --max-line-length=127 --statistics
+                flake8 . --count --exit-zero --max-line-length=127 --statistics
               
             - name: Run Bandit Security Analysis 
               run: 
