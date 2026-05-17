@@ -15,6 +15,24 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: '3.12'
+
+            - name: Install dependencies
+              run: | 
+                pip install fastapi uvicorn httpx pytest bandit flake8 psutil
+
+            - name: Lint and SAST
+              run: 
+                flake8 . --count --exit-zero --max-line -length=127 --statistics
+                bandit -r app/ -f txt
+
+            - name: Run Unit Tests
+              run: |
+                pytest app/test_main.py
+
             - name: Build Docker image
               run: |
                 docker build -t my-devops-app:latest .
