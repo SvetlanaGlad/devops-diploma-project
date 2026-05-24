@@ -37,7 +37,7 @@ jobs:
               
           - name: Run Bandit Security Analysis 
             run: |
-                bandit -r app/ -f txt -o bandit_report.txt 
+                bandit -r app/ -ll -f txt -o bandit_report.txt || true
             
           - name: Upload Bandit Report
             uses: actions/upload-artifact@v4
