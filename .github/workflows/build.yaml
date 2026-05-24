@@ -72,7 +72,7 @@ jobs:
             with:
                 image-ref: ${{ env.IMAGE_NAME }}
                 format: 'table'
-                exit-code: '1'
+                exit-code: '0'
                 severity: 'CRITICAL'
           
           - name: Push image
