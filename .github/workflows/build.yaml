@@ -21,6 +21,10 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v4
 
+          - name: Set lowercase image name
+            run: |
+              echo "IMAGE_NAME=ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]'):latest" >> $GITHUB_ENV
+
           - name: Set up Python
             uses: actions/setup-python@v5
             with:
@@ -80,6 +84,10 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+
+          - name: Set lowercase image name
+            run: |
+              echo "IMAGE_NAME=ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]'):latest" >> $GITHUB_ENV
 
           - name: Azure Login
             uses: azure/login@v2
