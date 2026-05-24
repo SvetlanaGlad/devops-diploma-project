@@ -89,16 +89,7 @@ jobs:
           - name: Set lowercase image name
             run: |
               echo "IMAGE_NAME=ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]'):latest" >> $GITHUB_ENV
-
-          - name: Azure Login
-            uses: azure/login@v2
-            with:
-               creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-          - name: Deploy container
-            uses: azure/container-apps-deploy-action@v1
-            with:
-              imageToDeploy: ${{ env.IMAGE_NAME }}
-              resourceGroup: devsecops-rg
-              containerAppName: devsecops-app
-              
+         
+          - name: Echo deployment info
+            run: |
+              echo "Image is deployed via GHCR → Azure Container App pulls automatically"
